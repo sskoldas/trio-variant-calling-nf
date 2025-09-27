@@ -1,0 +1,3 @@
+reads_father.GT: 18 variants
+reads_mother.GT: 18 variants
+reads_son.GT: 18 variants

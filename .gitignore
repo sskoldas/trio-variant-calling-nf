@@ -1,0 +1,15 @@
+# Nextflow working dirs
+work/
+.nextflow/
+.nextflow.*
+
+# Results
+results_genomics/*_gdb/
+results_genomics/*.bai
+results_genomics/*.fai
+results_genomics/*.dict
+results_genomics/*.idx
+
+# OS/editor junk
+.DS_Store
+*.swp
