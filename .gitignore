@@ -10,6 +10,11 @@ results_genomics/*.fai
 results_genomics/*.dict
 results_genomics/*.idx
 
+# nf-test artifacts
+.nf-test/
+.nf-test.*
+.nf-test.log
+
 # OS/editor junk
 .DS_Store
 *.swp

@@ -1,0 +1,14 @@
+{
+    "Should run without failures": {
+        "content": [
+            [
+                "mock_cohort.mendelian_qc.txt:md5,0367cd983311a6684df4cb1bb6f37704"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-09-28T23:38:22.540055228"
+    }
+}

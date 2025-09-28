@@ -1,0 +1,3 @@
+20_10037292_10066351:9536 -> Child=T/C, Mother=T/T, Father=C/C
+20_10037292_10066351:13536 -> Child=T/T, Mother=T/C, Father=T/C
+20_10037292_10066351:14156 -> Child=T/T, Mother=T/C, Father=T/C

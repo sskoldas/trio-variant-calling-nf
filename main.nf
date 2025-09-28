@@ -17,14 +17,16 @@ params.intervals = "${projectDir}/data/ref/intervals.bed"
 // Base name for cohort
 params.cohort_name = "family_trio"
 
+// Optional: use an existing GenomicsDB workspace instead of joint-genotyping GVCFs
+params.gdb_workspace = "${projectDir}/results_genomics/family_trio_gdb"
+
+
 
 include { SAMTOOLS_INDEX } from './modules/samtools/index/main.nf'
 include { GATK_HAPLOTYPECALLER } from './modules/gatk/haplotypecaller/main.nf'
 include { GATK_JOINTGENOTYPING } from './modules/gatk/jointgenotyping/main.nf'
 include { GATK_VARIANTSTOTABLE } from './modules/gatk/variantstotable/main.nf'
 include { TRIO_MENDELIAN_QC } from './modules/checksQC/trio/mendelianQC/main.nf'
-include { TRIO_DENOVO } from './modules/checksQC/trio/denovo/main.nf'
-include { VARIANT_STATS } from './modules/checksQC/trio/stats/main.nf'
 include { VEP_ANNOTATION } from './modules/annotation/main.nf'
 
 
@@ -36,6 +38,7 @@ workflow {
     ref_index_file = file(params.reference_index)
     ref_dict_file = file(params.reference_dict)
     intervals_file = file(params.intervals)
+    cohort = params.cohort_name
 
     SAMTOOLS_INDEX(reads_ch)
 
@@ -55,7 +58,7 @@ workflow {
         all_gvcfs_ch,
         all_idxs_ch,
         intervals_file,
-        params.cohort_name,
+        cohort,
         ref_file,
         ref_index_file,
         ref_dict_file
@@ -63,29 +66,16 @@ workflow {
 
     GATK_VARIANTSTOTABLE(
         GATK_JOINTGENOTYPING.out.vcf,
-        ref_file,
-        ref_index_file,
-        ref_dict_file,
-        params.cohort_name
+        cohort
     )
 
     TRIO_MENDELIAN_QC(
         GATK_VARIANTSTOTABLE.out.table,
-        params.cohort_name
-    )
-
-    TRIO_DENOVO(
-        GATK_VARIANTSTOTABLE.out.table,
-        params.cohort_name
-    )
-
-    VARIANT_STATS(
-        GATK_VARIANTSTOTABLE.out.table,
-        params.cohort_name
+        cohort
     )
 
     VEP_ANNOTATION(
         GATK_JOINTGENOTYPING.out.vcf,
-        params.cohort_name
+        cohort
     )
 }

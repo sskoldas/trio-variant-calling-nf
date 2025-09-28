@@ -24,9 +24,9 @@ process TRIO_MENDELIAN_QC {
     for i, row in df.iterrows():
         # assumes columns like "GENOTYPE_MOTHER", etc.
         try:
-            child = row['reads_son.bam.GT']
-            mother = row['reads_mother.bam.GT']
-            father = row['reads_father.bam.GT']
+            child = row['reads_son.GT']
+            mother = row['reads_mother.GT']
+            father = row['reads_father.GT']
         except KeyError:
             continue
         if child not in {mother, father} and child != "0/0":
